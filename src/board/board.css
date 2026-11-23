@@ -1,0 +1,102 @@
+/**
+ * Ravenboard layout for the Corvin board widget (CV-114).
+ * Colors come from design tokens; do not hard-code square hexes here.
+ */
+
+.corvin-board {
+  --corvin-board-size: min(100%, 70vh);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: var(--corvin-board-size);
+  aspect-ratio: 1;
+  border: 2px solid var(--indigo);
+  outline: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.corvin-board:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.corvin-sq {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.corvin-sq--light {
+  background: var(--board-sq-light);
+}
+
+.corvin-sq--dark {
+  background: var(--board-sq-dark);
+}
+
+.corvin-sq--last-move::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--board-last-move);
+  opacity: var(--board-last-move-opacity);
+  pointer-events: none;
+}
+
+.corvin-sq--selected {
+  box-shadow: inset 0 0 0 var(--board-selected-width) var(--board-selected);
+}
+
+.corvin-sq--focus {
+  box-shadow: inset 0 0 0 2px var(--focus-ring);
+  z-index: 1;
+}
+
+.corvin-sq--selected.corvin-sq--focus {
+  box-shadow:
+    inset 0 0 0 var(--board-selected-width) var(--board-selected),
+    inset 0 0 0 4px var(--focus-ring);
+}
+
+.corvin-piece {
+  position: relative;
+  z-index: 2;
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  pointer-events: none;
+  transition: transform var(--motion-piece-ms) var(--motion-piece-easing);
+}
+
+.corvin-coord {
+  position: absolute;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: var(--board-coord-size);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.corvin-coord--file {
+  right: 0.15em;
+  bottom: 0.1em;
+}
+
+.corvin-coord--rank {
+  left: 0.15em;
+  top: 0.1em;
+}
+
+.corvin-coord--on-dark {
+  color: var(--board-coord-on-dark);
+}
+
+.corvin-coord--on-light {
+  color: var(--board-coord-on-light);
+}

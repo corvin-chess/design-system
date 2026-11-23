@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Corvin board preview</title>
+    <link rel="stylesheet" href="./tokens.css" />
+    <link rel="stylesheet" href="./board/board.css" />
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--font-ui);
+        background: var(--ground);
+        color: var(--body);
+      }
+      main {
+        max-width: 36rem;
+        margin: 0 auto;
+        padding: 1.25rem;
+      }
+      h1 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin: 0 0 0.5rem;
+      }
+      p { margin: 0 0 1rem; line-height: 1.45; }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      button {
+        font-family: var(--font-ui);
+        font-size: 0.95rem;
+        padding: 0.45rem 0.85rem;
+        border: 2px solid var(--indigo);
+        background: var(--panel);
+        color: var(--body);
+        cursor: pointer;
+      }
+      button:focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 2px;
+      }
+      #host .corvin-board {
+        --corvin-board-size: min(100%, 28rem);
+      }
+      .live {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        min-height: 1.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Corvin board</h1>
+      <p>Ravenboard + Corvid from FEN. Tab into the board; arrows move focus; Enter or Space selects.</p>
+      <div class="toolbar">
+        <button type="button" id="theme-light" aria-label="Switch to light theme">Light</button>
+        <button type="button" id="theme-dark" aria-label="Switch to dark theme">Dark</button>
+      </div>
+      <div id="host"><div class="corvin-board" role="grid" aria-label="Chess board" aria-rowcount="8" aria-colcount="8" data-orientation="white"><div role="gridcell" id="corvin-sq-a8" class="corvin-sq corvin-sq--light" data-square="a8" data-index="56" aria-label="a8"><span class="corvin-coord corvin-coord--rank corvin-coord--on-light" data-rank="8" aria-hidden="true">8</span><img class="corvin-piece" src="../../assets/pieces/corvid/b-rook.svg" alt="Black Rook" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-b8" class="corvin-sq corvin-sq--dark" data-square="b8" data-index="57" aria-label="b8"><img class="corvin-piece" src="../../assets/pieces/corvid/b-knight.svg" alt="Black Knight" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-c8" class="corvin-sq corvin-sq--light" data-square="c8" data-index="58" aria-label="c8"><img class="corvin-piece" src="../../assets/pieces/corvid/b-bishop.svg" alt="Black Bishop" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-d8" class="corvin-sq corvin-sq--dark" data-square="d8" data-index="59" aria-label="d8"><img class="corvin-piece" src="../../assets/pieces/corvid/b-queen.svg" alt="Black Queen" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-e8" class="corvin-sq corvin-sq--light" data-square="e8" data-index="60" aria-label="e8"><img class="corvin-piece" src="../../assets/pieces/corvid/b-king.svg" alt="Black King" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-f8" class="corvin-sq corvin-sq--dark" data-square="f8" data-index="61" aria-label="f8"><img class="corvin-piece" src="../../assets/pieces/corvid/b-bishop.svg" alt="Black Bishop" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-g8" class="corvin-sq corvin-sq--light" data-square="g8" data-index="62" aria-label="g8"><img class="corvin-piece" src="../../assets/pieces/corvid/b-knight.svg" alt="Black Knight" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-h8" class="corvin-sq corvin-sq--dark" data-square="h8" data-index="63" aria-label="h8"><img class="corvin-piece" src="../../assets/pieces/corvid/b-rook.svg" alt="Black Rook" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-a7" class="corvin-sq corvin-sq--dark" data-square="a7" data-index="48" aria-label="a7"><span class="corvin-coord corvin-coord--rank corvin-coord--on-dark" data-rank="7" aria-hidden="true">7</span><img class="corvin-piece" src="../../assets/pieces/corvid/b-pawn.svg" alt="Black Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-b7" class="corvin-sq corvin-sq--light" data-square="b7" data-index="49" aria-label="b7"><img class="corvin-piece" src="../../assets/pieces/corvid/b-pawn.svg" alt="Black Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-c7" class="corvin-sq corvin-sq--dark" data-square="c7" data-index="50" aria-label="c7"><img class="corvin-piece" src="../../assets/pieces/corvid/b-pawn.svg" alt="Black Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-d7" class="corvin-sq corvin-sq--light" data-square="d7" data-index="51" aria-label="d7"><img class="corvin-piece" src="../../assets/pieces/corvid/b-pawn.svg" alt="Black Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-e7" class="corvin-sq corvin-sq--dark" data-square="e7" data-index="52" aria-label="e7"><img class="corvin-piece" src="../../assets/pieces/corvid/b-pawn.svg" alt="Black Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-f7" class="corvin-sq corvin-sq--light" data-square="f7" data-index="53" aria-label="f7"><img class="corvin-piece" src="../../assets/pieces/corvid/b-pawn.svg" alt="Black Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-g7" class="corvin-sq corvin-sq--dark" data-square="g7" data-index="54" aria-label="g7"><img class="corvin-piece" src="../../assets/pieces/corvid/b-pawn.svg" alt="Black Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-h7" class="corvin-sq corvin-sq--light" data-square="h7" data-index="55" aria-label="h7"><img class="corvin-piece" src="../../assets/pieces/corvid/b-pawn.svg" alt="Black Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-a6" class="corvin-sq corvin-sq--light" data-square="a6" data-index="40" aria-label="a6"><span class="corvin-coord corvin-coord--rank corvin-coord--on-light" data-rank="6" aria-hidden="true">6</span></div><div role="gridcell" id="corvin-sq-b6" class="corvin-sq corvin-sq--dark" data-square="b6" data-index="41" aria-label="b6"></div><div role="gridcell" id="corvin-sq-c6" class="corvin-sq corvin-sq--light" data-square="c6" data-index="42" aria-label="c6"></div><div role="gridcell" id="corvin-sq-d6" class="corvin-sq corvin-sq--dark" data-square="d6" data-index="43" aria-label="d6"></div><div role="gridcell" id="corvin-sq-e6" class="corvin-sq corvin-sq--light" data-square="e6" data-index="44" aria-label="e6"></div><div role="gridcell" id="corvin-sq-f6" class="corvin-sq corvin-sq--dark" data-square="f6" data-index="45" aria-label="f6"></div><div role="gridcell" id="corvin-sq-g6" class="corvin-sq corvin-sq--light" data-square="g6" data-index="46" aria-label="g6"></div><div role="gridcell" id="corvin-sq-h6" class="corvin-sq corvin-sq--dark" data-square="h6" data-index="47" aria-label="h6"></div><div role="gridcell" id="corvin-sq-a5" class="corvin-sq corvin-sq--dark" data-square="a5" data-index="32" aria-label="a5"><span class="corvin-coord corvin-coord--rank corvin-coord--on-dark" data-rank="5" aria-hidden="true">5</span></div><div role="gridcell" id="corvin-sq-b5" class="corvin-sq corvin-sq--light" data-square="b5" data-index="33" aria-label="b5"></div><div role="gridcell" id="corvin-sq-c5" class="corvin-sq corvin-sq--dark" data-square="c5" data-index="34" aria-label="c5"></div><div role="gridcell" id="corvin-sq-d5" class="corvin-sq corvin-sq--light" data-square="d5" data-index="35" aria-label="d5"></div><div role="gridcell" id="corvin-sq-e5" class="corvin-sq corvin-sq--dark" data-square="e5" data-index="36" aria-label="e5"></div><div role="gridcell" id="corvin-sq-f5" class="corvin-sq corvin-sq--light" data-square="f5" data-index="37" aria-label="f5"></div><div role="gridcell" id="corvin-sq-g5" class="corvin-sq corvin-sq--dark" data-square="g5" data-index="38" aria-label="g5"></div><div role="gridcell" id="corvin-sq-h5" class="corvin-sq corvin-sq--light" data-square="h5" data-index="39" aria-label="h5"></div><div role="gridcell" id="corvin-sq-a4" class="corvin-sq corvin-sq--light" data-square="a4" data-index="24" aria-label="a4"><span class="corvin-coord corvin-coord--rank corvin-coord--on-light" data-rank="4" aria-hidden="true">4</span></div><div role="gridcell" id="corvin-sq-b4" class="corvin-sq corvin-sq--dark" data-square="b4" data-index="25" aria-label="b4"></div><div role="gridcell" id="corvin-sq-c4" class="corvin-sq corvin-sq--light" data-square="c4" data-index="26" aria-label="c4"></div><div role="gridcell" id="corvin-sq-d4" class="corvin-sq corvin-sq--dark" data-square="d4" data-index="27" aria-label="d4"></div><div role="gridcell" id="corvin-sq-e4" class="corvin-sq corvin-sq--light" data-square="e4" data-index="28" aria-label="e4"></div><div role="gridcell" id="corvin-sq-f4" class="corvin-sq corvin-sq--dark" data-square="f4" data-index="29" aria-label="f4"></div><div role="gridcell" id="corvin-sq-g4" class="corvin-sq corvin-sq--light" data-square="g4" data-index="30" aria-label="g4"></div><div role="gridcell" id="corvin-sq-h4" class="corvin-sq corvin-sq--dark" data-square="h4" data-index="31" aria-label="h4"></div><div role="gridcell" id="corvin-sq-a3" class="corvin-sq corvin-sq--dark" data-square="a3" data-index="16" aria-label="a3"><span class="corvin-coord corvin-coord--rank corvin-coord--on-dark" data-rank="3" aria-hidden="true">3</span></div><div role="gridcell" id="corvin-sq-b3" class="corvin-sq corvin-sq--light" data-square="b3" data-index="17" aria-label="b3"></div><div role="gridcell" id="corvin-sq-c3" class="corvin-sq corvin-sq--dark" data-square="c3" data-index="18" aria-label="c3"></div><div role="gridcell" id="corvin-sq-d3" class="corvin-sq corvin-sq--light" data-square="d3" data-index="19" aria-label="d3"></div><div role="gridcell" id="corvin-sq-e3" class="corvin-sq corvin-sq--dark" data-square="e3" data-index="20" aria-label="e3"></div><div role="gridcell" id="corvin-sq-f3" class="corvin-sq corvin-sq--light" data-square="f3" data-index="21" aria-label="f3"></div><div role="gridcell" id="corvin-sq-g3" class="corvin-sq corvin-sq--dark" data-square="g3" data-index="22" aria-label="g3"></div><div role="gridcell" id="corvin-sq-h3" class="corvin-sq corvin-sq--light" data-square="h3" data-index="23" aria-label="h3"></div><div role="gridcell" id="corvin-sq-a2" class="corvin-sq corvin-sq--light" data-square="a2" data-index="8" aria-label="a2"><span class="corvin-coord corvin-coord--rank corvin-coord--on-light" data-rank="2" aria-hidden="true">2</span><img class="corvin-piece" src="../../assets/pieces/corvid/w-pawn.svg" alt="White Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-b2" class="corvin-sq corvin-sq--dark" data-square="b2" data-index="9" aria-label="b2"><img class="corvin-piece" src="../../assets/pieces/corvid/w-pawn.svg" alt="White Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-c2" class="corvin-sq corvin-sq--light" data-square="c2" data-index="10" aria-label="c2"><img class="corvin-piece" src="../../assets/pieces/corvid/w-pawn.svg" alt="White Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-d2" class="corvin-sq corvin-sq--dark" data-square="d2" data-index="11" aria-label="d2"><img class="corvin-piece" src="../../assets/pieces/corvid/w-pawn.svg" alt="White Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-e2" class="corvin-sq corvin-sq--light corvin-sq--focus" data-square="e2" data-index="12" aria-label="e2"><img class="corvin-piece" src="../../assets/pieces/corvid/w-pawn.svg" alt="White Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-f2" class="corvin-sq corvin-sq--dark" data-square="f2" data-index="13" aria-label="f2"><img class="corvin-piece" src="../../assets/pieces/corvid/w-pawn.svg" alt="White Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-g2" class="corvin-sq corvin-sq--light" data-square="g2" data-index="14" aria-label="g2"><img class="corvin-piece" src="../../assets/pieces/corvid/w-pawn.svg" alt="White Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-h2" class="corvin-sq corvin-sq--dark" data-square="h2" data-index="15" aria-label="h2"><img class="corvin-piece" src="../../assets/pieces/corvid/w-pawn.svg" alt="White Pawn" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-a1" class="corvin-sq corvin-sq--dark" data-square="a1" data-index="0" aria-label="a1"><span class="corvin-coord corvin-coord--file corvin-coord--on-dark" data-file="a" aria-hidden="true">a</span><span class="corvin-coord corvin-coord--rank corvin-coord--on-dark" data-rank="1" aria-hidden="true">1</span><img class="corvin-piece" src="../../assets/pieces/corvid/w-rook.svg" alt="White Rook" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-b1" class="corvin-sq corvin-sq--light" data-square="b1" data-index="1" aria-label="b1"><span class="corvin-coord corvin-coord--file corvin-coord--on-light" data-file="b" aria-hidden="true">b</span><img class="corvin-piece" src="../../assets/pieces/corvid/w-knight.svg" alt="White Knight" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-c1" class="corvin-sq corvin-sq--dark" data-square="c1" data-index="2" aria-label="c1"><span class="corvin-coord corvin-coord--file corvin-coord--on-dark" data-file="c" aria-hidden="true">c</span><img class="corvin-piece" src="../../assets/pieces/corvid/w-bishop.svg" alt="White Bishop" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-d1" class="corvin-sq corvin-sq--light" data-square="d1" data-index="3" aria-label="d1"><span class="corvin-coord corvin-coord--file corvin-coord--on-light" data-file="d" aria-hidden="true">d</span><img class="corvin-piece" src="../../assets/pieces/corvid/w-queen.svg" alt="White Queen" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-e1" class="corvin-sq corvin-sq--dark" data-square="e1" data-index="4" aria-label="e1"><span class="corvin-coord corvin-coord--file corvin-coord--on-dark" data-file="e" aria-hidden="true">e</span><img class="corvin-piece" src="../../assets/pieces/corvid/w-king.svg" alt="White King" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-f1" class="corvin-sq corvin-sq--light" data-square="f1" data-index="5" aria-label="f1"><span class="corvin-coord corvin-coord--file corvin-coord--on-light" data-file="f" aria-hidden="true">f</span><img class="corvin-piece" src="../../assets/pieces/corvid/w-bishop.svg" alt="White Bishop" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-g1" class="corvin-sq corvin-sq--dark" data-square="g1" data-index="6" aria-label="g1"><span class="corvin-coord corvin-coord--file corvin-coord--on-dark" data-file="g" aria-hidden="true">g</span><img class="corvin-piece" src="../../assets/pieces/corvid/w-knight.svg" alt="White Knight" draggable="false" width="45" height="45" /></div><div role="gridcell" id="corvin-sq-h1" class="corvin-sq corvin-sq--light" data-square="h1" data-index="7" aria-label="h1"><span class="corvin-coord corvin-coord--file corvin-coord--on-light" data-file="h" aria-hidden="true">h</span><img class="corvin-piece" src="../../assets/pieces/corvid/w-rook.svg" alt="White Rook" draggable="false" width="45" height="45" /></div></div></div>
+      <p class="live" id="status" aria-live="polite">Focus e2</p>
+    </main>
+    <script>
+      const FILES = "abcdefgh"
+      const RANKS = "12345678"
+      const fileOf = (s) => s & 7
+      const rankOf = (s) => s >> 3
+      const squareToAlgebraic = (square) => FILES[fileOf(square)] + RANKS[rankOf(square)]
+      const algebraicToSquare = (algebraic) => {
+        const file = FILES.indexOf(algebraic[0])
+        const rank = RANKS.indexOf(algebraic[1])
+        return rank * 8 + file
+      }
+      const moveFocusSquare = (from, key, orientation) => {
+        let file = fileOf(from)
+        let rank = rankOf(from)
+        const flip = orientation === "black"
+        if (key === "ArrowRight") file += flip ? -1 : 1
+        else if (key === "ArrowLeft") file += flip ? 1 : -1
+        else if (key === "ArrowUp") rank += flip ? -1 : 1
+        else if (key === "ArrowDown") rank += flip ? 1 : -1
+        if (file < 0 || file > 7 || rank < 0 || rank > 7) return from
+        return rank * 8 + file
+      }
+
+      const root = document.documentElement
+      const host = document.getElementById("host")
+      const status = document.getElementById("status")
+      const orientation = "white"
+      let focusSquare = algebraicToSquare("e2")
+      let selectedSquare = null
+
+      const boardEl = () => host.querySelector(".corvin-board")
+
+      const syncFocusClass = () => {
+        const board = boardEl()
+        if (!board) return
+        board.tabIndex = 0
+        for (const cell of board.querySelectorAll(".corvin-sq")) {
+          cell.classList.remove("corvin-sq--focus", "corvin-sq--selected")
+          const idx = Number(cell.dataset.index)
+          if (idx === focusSquare) cell.classList.add("corvin-sq--focus")
+          if (selectedSquare !== null && idx === selectedSquare) {
+            cell.classList.add("corvin-sq--selected")
+          }
+        }
+        board.setAttribute(
+          "aria-activedescendant",
+          "corvin-sq-" + squareToAlgebraic(focusSquare)
+        )
+        status.textContent =
+          "Focus " +
+          squareToAlgebraic(focusSquare) +
+          (selectedSquare !== null
+            ? "; selected " + squareToAlgebraic(selectedSquare)
+            : "")
+      }
+
+      document.getElementById("theme-light").addEventListener("click", () => {
+        root.setAttribute("data-theme", "light")
+      })
+      document.getElementById("theme-dark").addEventListener("click", () => {
+        root.setAttribute("data-theme", "dark")
+      })
+
+      host.addEventListener("keydown", (event) => {
+        const board = boardEl()
+        if (!board || event.target !== board) return
+        const keys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]
+        if (keys.includes(event.key)) {
+          event.preventDefault()
+          focusSquare = moveFocusSquare(focusSquare, event.key, orientation)
+          syncFocusClass()
+          return
+        }
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault()
+          selectedSquare =
+            selectedSquare === focusSquare ? null : focusSquare
+          syncFocusClass()
+        }
+      })
+
+      host.addEventListener("click", (event) => {
+        const cell = event.target.closest && event.target.closest("[data-index]")
+        if (!cell) return
+        focusSquare = Number(cell.dataset.index)
+        selectedSquare = focusSquare
+        syncFocusClass()
+        boardEl().focus()
+      })
+
+      syncFocusClass()
+    </script>
+  </body>
+</html>
