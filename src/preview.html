@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Corvin tokens preview</title>
+    <link rel="stylesheet" href="./tokens.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: var(--font-ui);
+        background: var(--ground);
+        color: var(--body);
+        transition:
+          background-color var(--motion-panel-ms) ease,
+          color var(--motion-panel-ms) ease;
+      }
+      main {
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+      h1 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin: 0 0 0.5rem;
+      }
+      p {
+        margin: 0 0 1.25rem;
+        line-height: 1.45;
+      }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+      button {
+        font-family: var(--font-ui);
+        font-size: 0.95rem;
+        padding: 0.45rem 0.85rem;
+        border: 2px solid var(--indigo);
+        background: var(--panel);
+        color: var(--body);
+        cursor: pointer;
+      }
+      button:focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 2px;
+      }
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+      .swatch {
+        border: 1px solid var(--indigo);
+        min-height: 4.5rem;
+        padding: 0.4rem;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+      }
+      .board {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        width: min(100%, 18rem);
+        aspect-ratio: 1;
+        border: 2px solid var(--indigo);
+        margin-bottom: 1rem;
+      }
+      .sq {
+        width: 100%;
+        aspect-ratio: 1;
+      }
+      .sq.light {
+        background: var(--board-sq-light);
+      }
+      .sq.dark {
+        background: var(--board-sq-dark);
+      }
+      .clock {
+        font-family: var(--font-mono);
+        font-size: 1.75rem;
+        border-bottom: 2px solid transparent;
+        display: inline-block;
+        padding-bottom: 0.15rem;
+      }
+      .clock.active {
+        border-bottom-color: var(--gold);
+      }
+      .ok {
+        color: var(--ok);
+      }
+      .danger {
+        color: var(--danger);
+      }
+      .mist {
+        color: var(--mist);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Corvin</h1>
+      <p>
+        Token preview for color, type, and motion.
+        <span class="ok">ok</span> /
+        <span class="danger">danger</span> /
+        <span class="mist">mist</span>
+      </p>
+      <div class="toolbar">
+        <button type="button" id="theme-light" aria-label="Switch to light theme">
+          Light
+        </button>
+        <button type="button" id="theme-dark" aria-label="Switch to dark theme">
+          Dark
+        </button>
+      </div>
+      <div class="swatches" id="swatches" aria-label="Color swatches"></div>
+      <div class="board" id="board" role="img" aria-label="Ravenboard sample"></div>
+      <p><span class="clock active" aria-label="Active clock">01:23</span></p>
+    </main>
+    <script>
+      const root = document.documentElement
+      document.getElementById("theme-light").addEventListener("click", () => {
+        root.setAttribute("data-theme", "light")
+      })
+      document.getElementById("theme-dark").addEventListener("click", () => {
+        root.setAttribute("data-theme", "dark")
+      })
+
+      const colors = {
+        ink: "#0b0d12",
+        slate: "#161b2b",
+        indigo: "#2f3d63",
+        mist: "#8fa3d9",
+        gold: "#c9a227",
+        paper: "#e6e9f2",
+        snow: "#f8fafc",
+        inkText: "#12141a",
+        danger: "#b33a3a",
+        ok: "#2f6d4f",
+      }
+
+      const swatches = document.getElementById("swatches")
+      for (const [name, hex] of Object.entries(colors)) {
+        const el = document.createElement("div")
+        el.className = "swatch"
+        el.style.background = hex
+        const lightFill = name === "snow" || name === "paper" || name === "mist"
+        el.style.color = lightFill ? "#12141a" : "#e6e9f2"
+        el.textContent = name + " " + hex
+        swatches.appendChild(el)
+      }
+
+      const board = document.getElementById("board")
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 8; c++) {
+          const sq = document.createElement("div")
+          sq.className = "sq " + ((r + c) % 2 === 0 ? "light" : "dark")
+          board.appendChild(sq)
+        }
+      }
+    </script>
+  </body>
+</html>

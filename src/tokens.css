@@ -1,0 +1,75 @@
+/**
+ * Corvin design tokens (CV-113). Values match DESIGN.md.
+ * Font files stay in the assets repository; clients self-host IBM Plex.
+ */
+
+:root {
+  /* Color system */
+  --ink: #0b0d12;
+  --slate: #161b2b;
+  --indigo: #2f3d63;
+  --mist: #8fa3d9;
+  --gold: #c9a227;
+  --paper: #e6e9f2;
+  --snow: #f8fafc;
+  --ink-text: #12141a;
+  --danger: #b33a3a;
+  --ok: #2f6d4f;
+
+  /* Ravenboard squares (same hexes as assets/boards/ravenboard) */
+  --board-light-square: #c5cddf;
+  --board-dark-square: #3a4563;
+  --board-dark-light-square: #4a5570;
+  --board-dark-dark-square: #1c2233;
+  --board-last-move: #c9a227;
+  --board-last-move-opacity: 0.35;
+  --board-selected: #8fa3d9;
+  --board-selected-width: 2px;
+  --board-legal: #8fa3d9;
+  --board-coord-on-dark: #e6e9f2;
+  --board-coord-on-light: #2f3d63;
+  --board-coord-size: 11px;
+
+  /* Typography stacks (load faces from assets fonts CSS) */
+  --font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Motion (DESIGN.md ranges; reduced-motion zeroes durations below) */
+  --motion-piece-ms: 140ms;
+  --motion-piece-easing: ease-out;
+  --motion-panel-ms: 120ms;
+  --motion-clock-pulse-hz: 1;
+
+  /* Semantic theme defaults (light) */
+  --ground: var(--snow);
+  --body: var(--ink-text);
+  --panel: var(--paper);
+  --focus-ring: var(--mist);
+}
+
+:root,
+[data-theme="light"] {
+  --ground: var(--snow);
+  --body: var(--ink-text);
+  --panel: #ffffff;
+  --board-sq-light: var(--board-light-square);
+  --board-sq-dark: var(--board-dark-square);
+}
+
+[data-theme="dark"] {
+  --ground: var(--ink);
+  --body: var(--paper);
+  --panel: var(--slate);
+  --board-sq-light: var(--board-dark-light-square);
+  --board-sq-dark: var(--board-dark-dark-square);
+  --focus-ring: var(--mist);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-piece-ms: 0ms;
+    --motion-panel-ms: 0ms;
+    --motion-clock-pulse-hz: 0;
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "@corvin-chess/design-system",
+  "version": "0.1.0",
+  "description": "Corvin design tokens (components and board rendering Planned)",
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css",
+    "./tokens": "./src/tokens.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node scripts/verify-tokens.mjs && node scripts/verify-readme.mjs",
+    "verify": "npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/corvin-chess/design-system.git"
+  },
+  "homepage": "https://github.com/corvin-chess/design-system",
+  "bugs": {
+    "url": "https://github.com/corvin-chess/design-system/issues"
+  }
+}
