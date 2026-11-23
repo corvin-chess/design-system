@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * CV-021: assert design-system README matches README_STYLE repository template rules.
+ * CV-021 / CV-113: assert design-system README matches README_STYLE rules.
  */
 import { readFileSync, existsSync } from "node:fs"
 import { dirname, join, resolve } from "node:path"
@@ -20,10 +20,10 @@ const LICENSE_ID = "AGPL-3.0-or-later"
 const CLOSING =
   "Shared tokens keep every board the same board, wherever it appears."
 
-const PLANNED_AREAS =
-  /^(Package scaffold|Tokens|Board\/piece renderer|Implementation)$/i
+const PLANNED_AREAS = /^(Board\/piece renderer|Implementation)$/i
 
-const BUILT_AREAS = /^(README|LICENSE|CI verify gate)$/i
+const BUILT_AREAS =
+  /^(README|LICENSE|CI verify gate|Package scaffold|Tokens)$/i
 
 const fail = (msg) => {
   console.error(`FAIL: ${msg}`)
@@ -153,6 +153,9 @@ if (!statusTableMatch) {
   let sawReadmeBuilt = false
   let sawLicenseBuilt = false
   let sawCiBuilt = false
+  let sawPackageBuilt = false
+  let sawTokensBuilt = false
+  let sawBoardPlanned = false
   let sawImplPlanned = false
   for (const [, areaRaw, stateRaw] of stateCells) {
     const area = areaRaw.trim()
@@ -172,11 +175,20 @@ if (!statusTableMatch) {
     if (/^CI verify gate$/i.test(area) && /^Built$/i.test(state)) {
       sawCiBuilt = true
     }
+    if (/^Package scaffold$/i.test(area) && /^Built$/i.test(state)) {
+      sawPackageBuilt = true
+    }
+    if (/^Tokens$/i.test(area) && /^Built$/i.test(state)) {
+      sawTokensBuilt = true
+    }
     if (BUILT_AREAS.test(area) && !/^Built$/i.test(state)) {
       fail(`STATUS row "${area}" must be Built; got "${state}"`)
     }
     if (PLANNED_AREAS.test(area) && !/^Planned$/i.test(state)) {
       fail(`STATUS row "${area}" must stay Planned until code exists; got "${state}"`)
+    }
+    if (/^Board\/piece renderer$/i.test(area) && /^Planned$/i.test(state)) {
+      sawBoardPlanned = true
     }
     if (/^Implementation$/i.test(area) && /^Planned$/i.test(state)) {
       sawImplPlanned = true
@@ -185,20 +197,29 @@ if (!statusTableMatch) {
   if (!sawReadmeBuilt) fail('STATUS must include "| README | Built |"')
   if (!sawLicenseBuilt) fail('STATUS must include "| LICENSE | Built |"')
   if (!sawCiBuilt) fail('STATUS must include "| CI verify gate | Built |"')
+  if (!sawPackageBuilt) fail('STATUS must include "| Package scaffold | Built |"')
+  if (!sawTokensBuilt) fail('STATUS must include "| Tokens | Built |"')
+  if (!sawBoardPlanned) fail('STATUS must include "| Board/piece renderer | Planned |"')
   if (!sawImplPlanned) fail('STATUS must include "| Implementation | Planned |"')
   if (!process.exitCode) ok("STATUS rows use Planned/Built correctly")
 }
 
-if (
-  !/No package scaffold, tokens, or board renderer is in this repository yet/i.test(
-    readme
-  )
-) {
-  fail(
-    'OVERVIEW must state "No package scaffold, tokens, or board renderer is in this repository yet"'
-  )
+if (!/Board and piece rendering is Planned/i.test(readme)) {
+  fail('OVERVIEW must state board/piece rendering is Planned')
 } else {
-  ok("OVERVIEW states no package scaffold yet")
+  ok("OVERVIEW states board renderer Planned")
+}
+
+if (!existsSync(join(repoRoot, "src", "tokens.css"))) {
+  fail("src/tokens.css missing; Tokens STATUS cannot be Built")
+} else {
+  ok("src/tokens.css present")
+}
+
+if (!existsSync(join(repoRoot, "package.json"))) {
+  fail("package.json missing; Package scaffold STATUS cannot be Built")
+} else {
+  ok("package.json present")
 }
 
 if (!/@corvin-chess\/design-system/i.test(readme)) {

@@ -16,5 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+      - name: Verify tokens
+        run: node scripts/verify-tokens.mjs
       - name: Verify README
         run: node scripts/verify-readme.mjs
