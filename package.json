@@ -1,20 +1,22 @@
 {
   "name": "@corvin-chess/design-system",
   "version": "0.1.0",
-  "description": "Corvin design tokens (components and board rendering Planned)",
+  "description": "Corvin design tokens and Ravenboard/Corvid board renderer",
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
     "./tokens.css": "./src/tokens.css",
-    "./tokens": "./src/tokens.ts"
+    "./tokens": "./src/tokens.ts",
+    "./board.css": "./src/board/board.css",
+    "./board": "./src/board/index.ts"
   },
   "files": [
     "src"
   ],
   "scripts": {
-    "test": "node scripts/verify-tokens.mjs && node scripts/verify-readme.mjs",
+    "test": "node scripts/verify-tokens.mjs && node --experimental-strip-types scripts/verify-board.mjs && node scripts/verify-readme.mjs",
     "verify": "npm test"
   },
   "engines": {

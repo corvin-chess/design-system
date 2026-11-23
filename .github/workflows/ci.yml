@@ -18,5 +18,7 @@ jobs:
           node-version: "20"
       - name: Verify tokens
         run: node scripts/verify-tokens.mjs
+      - name: Verify board
+        run: node --experimental-strip-types scripts/verify-board.mjs
       - name: Verify README
         run: node scripts/verify-readme.mjs

@@ -20,10 +20,10 @@ const LICENSE_ID = "AGPL-3.0-or-later"
 const CLOSING =
   "Shared tokens keep every board the same board, wherever it appears."
 
-const PLANNED_AREAS = /^(Board\/piece renderer|Implementation)$/i
+const PLANNED_AREAS = /^(Implementation)$/i
 
 const BUILT_AREAS =
-  /^(README|LICENSE|CI verify gate|Package scaffold|Tokens)$/i
+  /^(README|LICENSE|CI verify gate|Package scaffold|Tokens|Board\/piece renderer)$/i
 
 const fail = (msg) => {
   console.error(`FAIL: ${msg}`)
@@ -155,7 +155,7 @@ if (!statusTableMatch) {
   let sawCiBuilt = false
   let sawPackageBuilt = false
   let sawTokensBuilt = false
-  let sawBoardPlanned = false
+  let sawBoardBuilt = false
   let sawImplPlanned = false
   for (const [, areaRaw, stateRaw] of stateCells) {
     const area = areaRaw.trim()
@@ -187,8 +187,8 @@ if (!statusTableMatch) {
     if (PLANNED_AREAS.test(area) && !/^Planned$/i.test(state)) {
       fail(`STATUS row "${area}" must stay Planned until code exists; got "${state}"`)
     }
-    if (/^Board\/piece renderer$/i.test(area) && /^Planned$/i.test(state)) {
-      sawBoardPlanned = true
+    if (/^Board\/piece renderer$/i.test(area) && /^Built$/i.test(state)) {
+      sawBoardBuilt = true
     }
     if (/^Implementation$/i.test(area) && /^Planned$/i.test(state)) {
       sawImplPlanned = true
@@ -199,15 +199,27 @@ if (!statusTableMatch) {
   if (!sawCiBuilt) fail('STATUS must include "| CI verify gate | Built |"')
   if (!sawPackageBuilt) fail('STATUS must include "| Package scaffold | Built |"')
   if (!sawTokensBuilt) fail('STATUS must include "| Tokens | Built |"')
-  if (!sawBoardPlanned) fail('STATUS must include "| Board/piece renderer | Planned |"')
+  if (!sawBoardBuilt) fail('STATUS must include "| Board/piece renderer | Built |"')
   if (!sawImplPlanned) fail('STATUS must include "| Implementation | Planned |"')
   if (!process.exitCode) ok("STATUS rows use Planned/Built correctly")
 }
 
-if (!/Board and piece rendering is Planned/i.test(readme)) {
-  fail('OVERVIEW must state board/piece rendering is Planned')
+if (!existsSync(join(repoRoot, "src", "board", "mount.ts"))) {
+  fail("src/board/mount.ts missing; Board/piece renderer STATUS cannot be Built")
 } else {
-  ok("OVERVIEW states board renderer Planned")
+  ok("src/board/mount.ts present")
+}
+
+if (!/board renderer|Ravenboard|mountBoard|FEN/i.test(readme)) {
+  fail("OVERVIEW must describe the board renderer")
+} else {
+  ok("OVERVIEW describes board renderer")
+}
+
+if (/Board and piece rendering is Planned/i.test(readme)) {
+  fail("OVERVIEW must not still say board/piece rendering is Planned")
+} else {
+  ok("OVERVIEW no longer marks board renderer Planned")
 }
 
 if (!existsSync(join(repoRoot, "src", "tokens.css"))) {
